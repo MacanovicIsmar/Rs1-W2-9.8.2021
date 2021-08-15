@@ -1,0 +1,40 @@
+﻿@*
+	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+
+
+
+@model RS1_2020_01_30.ViewModels.OdabirTakmicenja
+@{
+
+	ViewData["Title"] = "Index";
+
+}
+
+<h4>korisnik može odabrati </h4>
+<hr>
+<div class=row>
+	<div class="col-md-4">
+		<form asp-controller="Takmicenje" asp-action="Odaberi" >
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="skolaId" class="control-label">Škola</label>
+				<select asp-for="skolaId" asp-items="@Model.Skole" class="form-control"></select>
+				<span asp-validation-for="skolaId" class="text-danger"  > </span>
+			</div>
+			<div>
+				<label asp-for="Razred" class="control-label">Razredi</label>
+				<select asp-for="Razred" asp-items="@Model.Razredi" class="form-control"></select>
+				<span asp-validation-for="Razred" class="text-danger"> </span>
+			</div>
+			<div class="form-group">
+				<input type="submit" name="name" value="Odaberi" class="btn btn-default"/>
+			</div>
+
+		</form>
+	</div>
+</div>
+
+
+
