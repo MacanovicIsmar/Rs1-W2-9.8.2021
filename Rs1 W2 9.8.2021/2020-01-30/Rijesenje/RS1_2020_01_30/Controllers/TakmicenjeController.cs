@@ -17,6 +17,7 @@ namespace RS1_2020_01_30.Controllers
 
 		//test for git
 		//test for git 2
+                //test for git 3
 		public TakmicenjeController(MojContext context)
 		{
 
