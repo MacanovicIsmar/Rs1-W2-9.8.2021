@@ -15,6 +15,7 @@ namespace RS1_2020_01_30.Controllers
 	{
 		private readonly MojContext CTX;
 
+		//test for git
 		public TakmicenjeController(MojContext context)
 		{
 
