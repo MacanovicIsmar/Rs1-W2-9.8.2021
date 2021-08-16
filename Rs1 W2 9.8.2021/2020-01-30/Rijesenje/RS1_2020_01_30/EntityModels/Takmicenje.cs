@@ -28,6 +28,8 @@ namespace RS1_2020_01_30.EntityModels
 
 		public Skola Skola { get; set;}
 
+		public bool iszakljucano { get; set; }
+
 
 
 	}

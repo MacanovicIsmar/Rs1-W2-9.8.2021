@@ -41,7 +41,7 @@
 				<td>@item.Datum</td>
 				<td>@item.Brojucesnika</td>
 				<td>@item.SkolaNaziv | @item.odjeljenje  | @item.ime</td>
-				<td>Rezultati <td> 
+				<td><a asp-controller="Takmicenje" asp-action="Rezultati" asp-route-Id="@item.TakmicenjeId">Rezultati</a><td> 
 			</tr>
 	       }
 
@@ -63,7 +63,7 @@
 
 
 
-
+@*<a asp-controller="Takmicenje" asp-action="Rezultati" asp-route-id="@Row.TakmicenjeId">Rezultati</a>*@
 
 
 @*<div style="margin-top: 20px">

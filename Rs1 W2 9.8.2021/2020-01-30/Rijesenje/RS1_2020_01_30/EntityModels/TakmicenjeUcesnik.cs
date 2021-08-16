@@ -17,7 +17,7 @@ namespace RS1_2020_01_30.EntityModels
 
 		public bool ispristupio { get; set;}
 
-		public int? OdjeljenjeId { get; set; }
+		public int? OdjeljenjeStavkaId { get; set; }
 
 		public virtual OdjeljenjeStavka OdjeljenjeStavka { get; set; }
 

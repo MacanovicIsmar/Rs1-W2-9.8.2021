@@ -195,12 +195,108 @@ namespace RS1_2020_01_30.Controllers
 				Datum = model.Datum,
 				PredmetId = model.PredmetId,
 				Razred = int.Parse(model.Razred),
-				SkolaId = model.SkolaId
+				SkolaId = model.SkolaId,
+				iszakljucano=false,
+				
 			};
 
-			return View();
+			CTX.Takmicenje.Add(entry);
+			CTX.SaveChanges();
+
+
+			//u bazi tabela koja je vezena za uslov
+
+			var spisaktakmicara =
+				CTX.DodjeljenPredmet
+				.Where(X => X.PredmetId == model.PredmetId)
+				.Where(X => X.ZakljucnoKrajGodine == 5)
+				.AsEnumerable()
+				.Select(X => {
+
+					return new TakmicenjeUcesnik
+					{
+						OdjeljenjeStavkaId= X.OdjeljenjeStavkaId,
+						Bodovi = 0,
+						ispristupio = false,
+						TakmicenjeId=entry.TakmicenjeId
+
+
+
+					};
+				})
+				.ToList();
+
+			//uslov 2 avarage
+			//
+			foreach (var a in spisaktakmicara)
+			{
+				bool flag = CTX.DodjeljenPredmet
+					 .Where(X => X.OdjeljenjeStavkaId == a.OdjeljenjeStavkaId)
+					 .AsEnumerable()
+					 .Select(X =>
+					 {
+
+						 return X.ZakljucnoKrajGodine;
+
+
+
+
+					 }).Average() > 4;
+
+
+				if (flag)
+				{
+
+
+					//a.TakmicenjeId = entry.TakmicenjeId;
+
+					CTX.Add(a);
+					CTX.SaveChanges();
+				
+				
+				}
+
+
+
+
+			
+			
+			}
+
+			
+
+
+
+				
+
+			
+				
+
+
+
+
+
+			return Redirect("/Takmicenje/Index");
 		
 		}
+
+		public IActionResult Rezultati(int Id)
+		{
+			//var model = new r
+
+
+
+
+
+
+
+
+
+
+
+			return View();
+		}
+
 
 
 	}
