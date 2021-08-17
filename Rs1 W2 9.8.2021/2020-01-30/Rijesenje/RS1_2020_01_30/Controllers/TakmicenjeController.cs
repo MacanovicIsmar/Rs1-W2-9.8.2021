@@ -282,19 +282,43 @@ namespace RS1_2020_01_30.Controllers
 
 		public IActionResult Rezultati(int Id)
 		{
-			//var model = new r
 
+			Takmicenje paket = CTX.Takmicenje.Where(i => i.TakmicenjeId== Id)
+				.SingleOrDefault();
 
+			//converting datetime
+			DateTime datum = paket.Datum??new DateTime(2000,1,1);
 
+			var model = new RezultatiWM
+			{
+				Datum = datum.ToString(format: "d.MM.yyyy"),
+				PredmetId = (int)paket.PredmetId,
+				PredmetNaziv = CTX.Predmet.Find(paket.PredmetId).Naziv,
+				Razred = (int)paket.Razred,
+				skolaId = paket.SkolaId,
+				Skolanaziv = CTX.Skola.Find(paket.SkolaId).Naziv,
 
+				SpisakUcesnika = CTX.TakmicenjeUcesnik
+				 .Where(x => x.TakmicenjeId == paket.TakmicenjeId)
+				 .Include(X=>X.OdjeljenjeStavka)
+				 .Include(X=>X.OdjeljenjeStavka.Odjeljenje)
+				 .AsEnumerable()
+				 .Select(x =>
+				 {
+					 return new RezultatiWM.row
+					 {
+						 Brojudnevniku=x.OdjeljenjeStavka.BrojUDnevniku.ToString(),
+						 odjeljeneId=x.OdjeljenjeStavka.Odjeljenje.Id,
+						 odjeljeneNaziv=x.OdjeljenjeStavka.Odjeljenje.Oznaka,
+						 odjeljeneStavkaId=(int)x.OdjeljenjeStavkaId,
+						 Pristupio=x.ispristupio,
+						 Rezultatibodovi=x.Bodovi
+					 };
+				 })
+				 .ToList()
+			};
 
-
-
-
-
-
-
-			return View();
+			return View("Rezultati", model);
 		}
 
 
