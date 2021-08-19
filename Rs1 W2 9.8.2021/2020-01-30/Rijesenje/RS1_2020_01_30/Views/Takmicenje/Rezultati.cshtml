@@ -10,45 +10,42 @@
 <hr />
 <div class="row">
 	<div class="col-md-4">
-		<form asp-controller="" asp-action="">
+		<form id="test" asp-controller="" asp-action="">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<input asp-for="PredmetId" value="@Model.PredmetId" hidden />
 			<input asp-for="skolaId" calue="@Model.skolaId" hidden />
 			<div class="form-group">
 				<label class="control-label" asp-for="Skolanaziv">Škola Domaćin</label>
-				<input class="form-control" asp-for="Skolanaziv" value="@Model.Skolanaziv" readonly/>
+				<input class="form-control" asp-for="Skolanaziv" value="@Model.Skolanaziv" readonly />
 				<span class="text-danger" asp-validation-for="Skolanaziv"></span>
 			</div>
 			<div class="form-group">
-				<label class="control-label" asp-for="PredmetNaziv" >Predmet</label>
-				<input class="form-control" asp-for="PredmetNaziv" value="@Model.PredmetNaziv" readonly/>
+				<label class="control-label" asp-for="PredmetNaziv">Predmet</label>
+				<input class="form-control" asp-for="PredmetNaziv" value="@Model.PredmetNaziv" readonly />
 				<span class="text-danger" asp-validation-for="PredmetNaziv"></span>
-		     </div>
+			</div>
 			<div class="form-group">
 				<label class="control-label" asp-for="Razred"> Razred</label>
-				<input class="form-control" asp-for="Razred" value="@Model.Razred" readonly/>
+				<input class="form-control" asp-for="Razred" value="@Model.Razred" readonly />
 				<span class="text-danger" asp-validation-for="Razred"></span>
 			</div>
 			<div class="form-group">
 				<label class="control-label" asp-for="Datum">Datum</label>
-				<input class="form-control" asp-for="Datum" value="@Model.Datum" readonly/>
-				<span class="text-danger" asp-validation-for="Datum" ></span>
+				<input class="form-control" asp-for="Datum" value="@Model.Datum" readonly />
+				<span class="text-danger" asp-validation-for="Datum"></span>
 			</div>
 
 			<div class="form-group">
 
-				<a class="btn btn-default" asp-action="" asp-controller="" asp-route-Id=""> zakljucaj</a>
-
+				<a class="btn btn-default" asp-action="Zakljucaj" ajax-poziv="da" ajax-rezultat="ajax" asp-controller="Takmicenje" asp-route-Id="@Model.takmicenjeId"> zakljucaj</a>
+				
 
 			</div>
 
-
+			
 		</form>
 
-		<div id="ajax" class="form-group">
-
-
-		</div>
+		
 
 	</div>
 
@@ -57,8 +54,36 @@
 
 </div>
 
-<script>
-	$.get("/AjaxStavke/ajax?Lista=@Model", function (result) {
+<div id="ajax">
+
+
+</div>
+
+<div >
+	<form id=lista>
+		<input asp-for="SpisakUcesnika" value="@Model.PredmetId" hidden />
+	</form>
+</div>		
+
+
+<script >
+
+	
+	//var data = $('#lista').serialize()
+
+	//$.ajax({
+	//	type: "POST",
+	//	url: '/AjaxStavke/ajax',     //your action
+	//	data: data ,   //your form name.it takes all the values of model               
+	//	dataType: 'json',
+	//	success: function (result) {
+	//		$("#ajax").html(result);
+	//	}
+	//})
+
+
+
+	$.get("/AjaxStavke/ajax?Id=@Model.takmicenjeId", function (result) {
 		$("#ajax").html(result);
     });
 </script>

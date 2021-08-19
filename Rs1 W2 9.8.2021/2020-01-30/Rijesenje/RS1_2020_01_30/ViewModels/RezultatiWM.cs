@@ -7,6 +7,8 @@ namespace RS1_2020_01_30.ViewModels
 {
 	public class RezultatiWM
 	{
+		public int takmicenjeId { get; set; }
+
 		public int skolaId { get; set; }
 
 		public string Skolanaziv { get; set; }
@@ -20,6 +22,8 @@ namespace RS1_2020_01_30.ViewModels
 		public string Datum { get; set; }
 
 		public List<row> SpisakUcesnika { get; set; }
+
+		public bool iszakljucano { get; set; }
 
 
 

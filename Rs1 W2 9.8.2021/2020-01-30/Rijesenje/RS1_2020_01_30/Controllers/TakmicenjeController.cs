@@ -291,12 +291,14 @@ namespace RS1_2020_01_30.Controllers
 
 			var model = new RezultatiWM
 			{
+				takmicenjeId=paket.TakmicenjeId,
 				Datum = datum.ToString(format: "d.MM.yyyy"),
 				PredmetId = (int)paket.PredmetId,
 				PredmetNaziv = CTX.Predmet.Find(paket.PredmetId).Naziv,
 				Razred = (int)paket.Razred,
 				skolaId = paket.SkolaId,
 				Skolanaziv = CTX.Skola.Find(paket.SkolaId).Naziv,
+				//TakmicenjeId=paket.TakmicenjeId,
 
 				SpisakUcesnika = CTX.TakmicenjeUcesnik
 				 .Where(x => x.TakmicenjeId == paket.TakmicenjeId)
@@ -319,6 +321,32 @@ namespace RS1_2020_01_30.Controllers
 			};
 
 			return View("Rezultati", model);
+		}
+
+		public IActionResult Zakljucaj(int Id)
+		{
+			var takmicenje =
+				CTX.Takmicenje.Find(Id);
+
+			if (takmicenje.iszakljucano == false)
+			{
+
+				takmicenje.iszakljucano = true;
+
+
+			}
+			else
+			{
+
+				takmicenje.iszakljucano = false;
+			}
+			CTX.SaveChanges();
+
+			//return "hell yea";
+
+			//return Content("<html><p><i>Hello! You are trying to view <u>something!</u></i></p></html>", "text/html");
+
+			return RedirectToAction("ajax", "AjaxStavke", new { Id = Id });
 		}
 
 

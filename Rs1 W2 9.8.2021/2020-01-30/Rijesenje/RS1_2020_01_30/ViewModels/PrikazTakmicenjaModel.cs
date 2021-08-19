@@ -14,6 +14,8 @@ namespace RS1_2020_01_30.ViewModels
 		public string Razred { get; set; }
 
 		public List<row> Lista { get; set; }
+		
+		//public int TakmicenjeId { get; set; }
 
 		public class row
 		{
