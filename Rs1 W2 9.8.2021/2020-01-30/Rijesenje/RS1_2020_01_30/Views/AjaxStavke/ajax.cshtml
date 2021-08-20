@@ -10,8 +10,8 @@
 {
 
 
-	<table class="table table-bordered" >
-		
+	<table class="table table-bordered">
+
 		<thead>
 			<tr>
 
@@ -27,23 +27,91 @@
 
 			@foreach (var a in Model.SpisakUcesnika)
 			{
-			  <tr style="width:300px">
-				  <td>@a.odjeljeneNaziv</td>
-				  <td>@a.Brojudnevniku</td>
-				  <td>@a.Pristupio</td>
-				  <td>@a.Rezultatibodovi</td>
-				  <td>Uredi</td>
+			<tr style="width:300px">
+				<td>@a.odjeljeneNaziv</td>
+				<td>@a.Brojudnevniku</td>
+
+				@if (a.Pristupio == true)
+				{
+					<td>Da</td>
+					<td>@a.Rezultatibodovi</td>
+				}
+				else
+				{
+					<td>Ne</td>
+					<td>X</td>
+				}
+
+
+
+				<td>Uredi</td>
 
 
 
 
 
-			  </tr>
+			</tr>
 
 			}
 		</tbody>
-	
+
 	</table>
+
+
+}
+else
+{
+	<table class="table table-bordered">
+
+		<thead>
+			<tr>
+
+				<td>Odjeljenje </td>
+				<td>Broj u Dnevniku</td>
+				<td>Pristupio</td>
+				<td>Rezultat Bodovi</td>
+				<td>Akcija</td>
+
+			</tr>
+		</thead>
+		<tbody>
+
+			@foreach (var a in Model.SpisakUcesnika)
+			{
+
+
+			<tr style="width:300px">
+				<td>@a.odjeljeneNaziv</td>
+				<td>@a.Brojudnevniku</td>
+
+				@if (a.Pristupio == true)
+				{
+					<td><a class="btn-success">Da</a></td>
+					<td>@a.Rezultatibodovi</td>
+				}
+				else
+				{
+					<td><a class="btn-danger">Ne</a></td>
+					<td>X</td>
+				}
+
+
+
+
+				<td>Uredi</td>
+			</tr>
+
+			}
+		</tbody>
+
+	</table>
+
+
+
+
+
+
+
 
 
 }

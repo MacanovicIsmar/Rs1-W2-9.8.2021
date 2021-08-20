@@ -328,19 +328,12 @@ namespace RS1_2020_01_30.Controllers
 			var takmicenje =
 				CTX.Takmicenje.Find(Id);
 
-			if (takmicenje.iszakljucano == false)
-			{
-
-				takmicenje.iszakljucano = true;
-
-
-			}
-			else
-			{
-
-				takmicenje.iszakljucano = false;
-			}
-			CTX.SaveChanges();
+			
+				takmicenje.iszakljucano = !takmicenje.iszakljucano;
+				CTX.SaveChanges();
+			
+			
+			
 
 			//return "hell yea";
 

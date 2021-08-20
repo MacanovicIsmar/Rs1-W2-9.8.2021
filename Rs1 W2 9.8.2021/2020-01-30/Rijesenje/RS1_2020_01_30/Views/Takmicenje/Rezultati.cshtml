@@ -2,9 +2,57 @@
 	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+
+	var load = true;
+
 }
 
 @model RS1_2020_01_30.ViewModels.RezultatiWM
+
+<script>
+
+	window.onload = function () {
+		myFunc();
+	};
+
+
+	//var data = $('#lista').serialize()
+
+	//$.ajax({
+	//	type: "POST",
+	//	url: '/AjaxStavke/ajax',     //your action
+	//	data: data ,   //your form name.it takes all the values of model
+	//	dataType: 'json',
+	//	success: function (result) {
+	//		$("#ajax").html(result);
+	//	}
+	//})
+
+	function myFunc()
+	{
+		$.get("/AjaxStavke/ajax?Id=@Model.takmicenjeId", function (result) {
+				$("#ajax").html(result);
+			});
+
+		myFunc = function () { }; // kill it as soon as it was called
+
+	};
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
 <h2>rezultati Takmicenje</h2>
 
 <hr />
@@ -37,15 +85,15 @@
 
 			<div class="form-group">
 
-				<a class="btn btn-default" asp-action="Zakljucaj" ajax-poziv="da" ajax-rezultat="ajax" asp-controller="Takmicenje" asp-route-Id="@Model.takmicenjeId"> zakljucaj</a>
-				
+				@*<a class="btn btn-default" ajax-url="/Takmicenje/Zakljucaj?Id=@Model.takmicenjeId ajax-poziv="da" ajax-rezultat="ajax"> zakljucaj</a>*@
+				<a class="btn btn-default" asp-action="Zakljucaj" ajax-poziv="da" ajax-rezultat="ajax" asp-route-Id="@Model.takmicenjeId"> zakljucaj</a>
 
 			</div>
 
-			
+
 		</form>
 
-		
+
 
 	</div>
 
@@ -59,43 +107,22 @@
 
 </div>
 
-<div >
+<div>
 	<form id=lista>
 		<input asp-for="SpisakUcesnika" value="@Model.PredmetId" hidden />
 	</form>
-</div>		
+</div>
 
 
-<script >
-
-	
-	//var data = $('#lista').serialize()
-
-	//$.ajax({
-	//	type: "POST",
-	//	url: '/AjaxStavke/ajax',     //your action
-	//	data: data ,   //your form name.it takes all the values of model               
-	//	dataType: 'json',
-	//	success: function (result) {
-	//		$("#ajax").html(result);
-	//	}
-	//})
-
-
-
-	$.get("/AjaxStavke/ajax?Id=@Model.takmicenjeId", function (result) {
-		$("#ajax").html(result);
-    });
-</script>
 
 
 
 
 @*div aspvalidation-summary text-danger
-hidden inputs
-div block
-label
-input or select
-span 
-kraj div blocka
-input type button or a*@ 
+	hidden inputs
+	div block
+	label
+	input or select
+	span
+	kraj div blocka
+	input type button or a*@
