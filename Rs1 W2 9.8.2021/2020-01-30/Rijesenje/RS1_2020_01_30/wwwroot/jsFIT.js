@@ -83,12 +83,10 @@ $(document).ready(function () {
 
 //$(document).ajaxComplete(function () {
 
-//    if (ajaxonce == true)
-//    {
-//        ajaxonce = false;
+        
 //        DodajAjaxEvente();
 
-//    }
+    
     
    
 //});

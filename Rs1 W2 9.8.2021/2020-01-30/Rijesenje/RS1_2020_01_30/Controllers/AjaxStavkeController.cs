@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RS1_2020_01_30.EF;
+using RS1_2020_01_30.EntityModels;
 using RS1_2020_01_30.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -37,10 +38,10 @@ namespace RS1_2020_01_30.Controllers
 
 			var paket = CTX.Takmicenje.Find(Id);
 
+
 			var model = new RezultatiWM
 			{
-				
-
+			    takmicenjeId=Id,	
 				iszakljucano=paket.iszakljucano,
 				SpisakUcesnika = CTX.TakmicenjeUcesnik
 				 .Where(x => x.TakmicenjeId == Id)
@@ -51,6 +52,7 @@ namespace RS1_2020_01_30.Controllers
 				 {
 					 return new RezultatiWM.row
 					 {
+						 Id = x.TakmicenjeUcesnikId,
 						 Brojudnevniku = x.OdjeljenjeStavka.BrojUDnevniku.ToString(),
 						 odjeljeneId = x.OdjeljenjeStavka.Odjeljenje.Id,
 						 odjeljeneNaziv = x.OdjeljenjeStavka.Odjeljenje.Oznaka,
@@ -64,6 +66,37 @@ namespace RS1_2020_01_30.Controllers
 
 
 			return PartialView(model);
+		}
+
+		public IActionResult Uredi(int Id)
+		{
+			var ucesnik = new TakmicenjeUcesnik();
+
+			if (Id != 0)
+			{
+				ucesnik = CTX.TakmicenjeUcesnik.Find(Id);
+			
+			
+			
+			
+			
+			}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			return View();
 		}
 
 

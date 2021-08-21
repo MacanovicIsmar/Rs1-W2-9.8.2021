@@ -4,7 +4,7 @@
 @{
 }
 @model RS1_2020_01_30.ViewModels.RezultatiWM
-
+	<script src="/jsFIT.js"></script>
 
 @if (Model.iszakljucano == true)
 {
@@ -86,19 +86,37 @@ else
 
 				@if (a.Pristupio == true)
 				{
-					<td><a class="btn-success">Da</a></td>
+					<td><a ajax-poziv="da"
+                           ajax-rezultat="ajax" 
+						   asp-action="UcesnikNijePristupio" 
+						   asp-controller="Takmicenje" 
+						   asp-route-Id="@a.Id" 
+						   asp-route-takId="@Model.takmicenjeId" 
+						   class="btn-success">Da</a></td>
 					<td>@a.Rezultatibodovi</td>
 				}
 				else
 				{
-					<td><a class="btn-danger">Ne</a></td>
+					<td><a ajax-poziv="da"
+                           ajax-rezultat="ajax" 
+						   asp-action="UcesnikJePristupio" 
+						   asp-controller="Takmicenje" 
+						   asp-route-Id="@a.Id" 
+						   asp-route-takId="@Model.takmicenjeId"
+						   class="btn-danger">Ne</a></td>
 					<td>X</td>
 				}
 
+				<td><a ajax-poziv="da"
+					   ajax-rezultat="ajax"
+					   asp-action="Uredi"
+					   asp-controller="AjaxStavke"
+					   asp-route-Id="@a.Id"
+					   >Uredi</a>
+				</td>
 
 
-
-				<td>Uredi</td>
+				
 			</tr>
 
 			}

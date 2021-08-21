@@ -309,6 +309,7 @@ namespace RS1_2020_01_30.Controllers
 				 {
 					 return new RezultatiWM.row
 					 {
+						 Id = x.TakmicenjeUcesnikId,
 						 Brojudnevniku=x.OdjeljenjeStavka.BrojUDnevniku.ToString(),
 						 odjeljeneId=x.OdjeljenjeStavka.Odjeljenje.Id,
 						 odjeljeneNaziv=x.OdjeljenjeStavka.Odjeljenje.Oznaka,
@@ -342,6 +343,36 @@ namespace RS1_2020_01_30.Controllers
 			return RedirectToAction("ajax", "AjaxStavke", new { Id = Id });
 		}
 
+		public IActionResult UcesnikJePristupio(int Id,int takId)
+		{
+			togglepristupio(Id);
+
+			return RedirectToAction("ajax", "AjaxStavke", new { Id=takId});
+		}
+
+		public void togglepristupio(int Id)
+		{
+
+			var ucesnik = CTX.TakmicenjeUcesnik.Find(Id);
+
+			ucesnik.ispristupio = !ucesnik.ispristupio;
+
+			CTX.SaveChanges();
+		
+		
+		
+		}
+
+		public IActionResult UcesnikNijePristupio(int Id, int takId)
+		{
+			togglepristupio(Id);
+
+			return RedirectToAction("ajax", "AjaxStavke", new { Id = takId });
+
+
+
+
+		}
 
 
 	}

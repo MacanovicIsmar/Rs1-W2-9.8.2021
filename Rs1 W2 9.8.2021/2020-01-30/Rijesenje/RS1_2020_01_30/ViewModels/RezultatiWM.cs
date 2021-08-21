@@ -29,6 +29,8 @@ namespace RS1_2020_01_30.ViewModels
 
 		public class row 
 		{
+			public int Id { get; set; }
+
 			public int odjeljeneId { get; set; }
 
 			public string odjeljeneNaziv { get; set; }
