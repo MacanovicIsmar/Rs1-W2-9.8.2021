@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using RS1_2020_01_30.EF;
 using RS1_2020_01_30.EntityModels;
@@ -68,17 +69,98 @@ namespace RS1_2020_01_30.Controllers
 			return PartialView(model);
 		}
 
-		public IActionResult Uredi(int Id)
+		public IActionResult Uredi(int Id ,int TakId)
 		{
-			var ucesnik = new TakmicenjeUcesnik();
 
-			if (Id != 0)
+			TakmicenjeUcesnik ucesnik = CTX.TakmicenjeUcesnik.Find(Id);
+
+
+			var model = new UrediUcesnikaWM
 			{
-				ucesnik = CTX.TakmicenjeUcesnik.Find(Id);
+				bodovi = ucesnik.Bodovi,
+				TakmicenjeId = TakId,
+				ucesnikId = ucesnik.TakmicenjeUcesnikId,
+
+				Lista = CTX.TakmicenjeUcesnik
+				.Where(X => X.TakmicenjeId == TakId)
+				.Include(X=>X.OdjeljenjeStavka)
+				.Include(X => X.OdjeljenjeStavka.Odjeljenje)
+				.Include(X => X.OdjeljenjeStavka.Ucenik)
+				.AsEnumerable()
+				.Select(X => {
+
+					if (X.TakmicenjeUcesnikId == Id)
+					{
+						return new SelectListItem
+						{
+							Selected = true,
+							Value = X.TakmicenjeUcesnikId.ToString(),
+							Text = X.OdjeljenjeStavka.Odjeljenje.Oznaka + "-" + X.OdjeljenjeStavka.Ucenik.ImePrezime
+						};
+					}
+					else
+					{
+						return new SelectListItem
+						{
+
+							Value = X.TakmicenjeUcesnikId.ToString(),
+							Text = X.OdjeljenjeStavka.Odjeljenje.Oznaka + "-" + X.OdjeljenjeStavka.Ucenik.ImePrezime
+
+						};
+
+					}
 			
+				}).ToList()		
+			};
+
+
 			
-			
-			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			return PartialView("UrediDodajAjax",model);
+		}
+
+		public IActionResult Snimi(UrediUcesnikaWM model)
+		{
+
+
+			TakmicenjeUcesnik postoji = CTX.TakmicenjeUcesnik
+				.Where(X => X.TakmicenjeId == model.TakmicenjeId)
+				.Where(X => X.TakmicenjeUcesnikId == model.ucesnikId)
+				.FirstOrDefault();
+
+			if (postoji == null)
+			{
+				//var novi=new TakmicenjeUcesnik
+				//{ 
+
+
+
+
+				//}	
+			}
+			else
+			{
+
+				var takmicar = CTX.TakmicenjeUcesnik.Find(model.ucesnikId);
+				takmicar.Bodovi = model.bodovi;
+				CTX.SaveChanges();		
 			
 			}
 
@@ -86,18 +168,9 @@ namespace RS1_2020_01_30.Controllers
 
 
 
-
-
-
-
-
-
-
-
-
-
-			return View();
+			return RedirectToAction("ajax",new {id=model.TakmicenjeId});
 		}
+
 
 
 
