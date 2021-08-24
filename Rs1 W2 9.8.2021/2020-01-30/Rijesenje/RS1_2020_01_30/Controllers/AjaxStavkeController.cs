@@ -147,13 +147,22 @@ namespace RS1_2020_01_30.Controllers
 
 			if (postoji == null)
 			{
-				//var novi=new TakmicenjeUcesnik
-				//{ 
+				var takmicar = CTX.TakmicenjeUcesnik.Find(model.ucesnikId);
+
+
+				TakmicenjeUcesnik ucesnik = new TakmicenjeUcesnik
+				{
+					Bodovi = model.bodovi,
+					ispristupio = takmicar.ispristupio,
+					OdjeljenjeStavkaId = takmicar.OdjeljenjeStavkaId,
+					TakmicenjeId = model.TakmicenjeId,
+				};
+
+				CTX.TakmicenjeUcesnik.Add(ucesnik);
+				CTX.SaveChanges();
 
 
 
-
-				//}	
 			}
 			else
 			{
@@ -171,9 +180,61 @@ namespace RS1_2020_01_30.Controllers
 			return RedirectToAction("ajax",new {id=model.TakmicenjeId});
 		}
 
+		public IActionResult DodajForm(int Id)
+		{
+			var listadodanitakmicara = CTX.TakmicenjeUcesnik
+				.Where(X => X.TakmicenjeId == Id)
+				.Select(X=>X.OdjeljenjeStavkaId)
+				.ToList();
 
 
 
+
+
+
+			var model = new UrediUcesnikaWM
+			{
+				bodovi = 0,
+				TakmicenjeId = Id,
+				ucesnikId = 0,
+				Lista = CTX.TakmicenjeUcesnik
+			   .Where(X => listadodanitakmicara.Contains(X.OdjeljenjeStavkaId) == false)
+			   .Include(X => X.OdjeljenjeStavka)
+			   .Include(X => X.OdjeljenjeStavka.Ucenik)
+			   .AsEnumerable()
+			   .Select(X =>
+			   {
+				   return new SelectListItem
+				   {
+					   Value = X.TakmicenjeUcesnikId.ToString(),
+					   Text = X.OdjeljenjeStavka.Ucenik.ImePrezime,
+
+
+				   };
+			   }).ToList(),
+			};
+
+			return PartialView("UrediDodajAjax",model);
+
+			//i => i.Odjeljenje.Razred == Takmicenje.Razred &&
+			//					Takmicari.Contains(i.Id) == false
+		}
+
+		public IActionResult UpdateBodovi(int Id, int bodovi)
+		{
+			var takmicar = CTX.TakmicenjeUcesnik.Find(Id);
+			takmicar.Bodovi = bodovi;
+			CTX.SaveChanges();
+
+
+
+
+			return RedirectToAction("ajax", new { id = takmicar.TakmicenjeId });
+
+
+		}
+
+		//UpdateBodovi? Id = " + Id + " & bodovi = " + bodovi);
 
 	}
 }
