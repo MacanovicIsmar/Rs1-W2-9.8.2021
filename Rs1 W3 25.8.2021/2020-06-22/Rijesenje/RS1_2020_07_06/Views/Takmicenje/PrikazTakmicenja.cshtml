@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model RS1_2020_07_06.WM.PrikazTakmicenja
+
+<h2>Prikaz Takmicenja</h2>
+
+<hr>
+
+<div class="row">
+	<div class="col-md-5">
+		<form>
+			<input asp-for="SkolaId" value="@Model.SkolaId" hidden/>
+
+			<div class="form-group">
+				
+				<label class="control-label" asp-for="SkolaId"></label>
+				<select class="form-control" asp-for="SkolaId" asp-items="@Model.ListaSkola"></select>
+				<span asp-validation-for="SkolaId" class="text-danger"></span>
+
+			</div>
+
+		</form>
+		
+
+	</div>
+
+</div>
+
+
+
+
+
