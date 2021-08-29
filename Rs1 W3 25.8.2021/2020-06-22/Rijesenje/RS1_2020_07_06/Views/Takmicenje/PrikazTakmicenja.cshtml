@@ -31,6 +31,50 @@
 </div>
 
 
+<div>
+	<table class="table table-bordered" >
+		
+		<thead>
+			<tr>
+				<td>Škola</td>
+				<td>Razred</td>
+				<td>Datum</td>
+				<td>Predmet</td>
+				<td>Najbolji Učesnik (škola | Odjeljenje |Ime i Prezime)</td>
+				<td>Akcija</td>
 
+			</tr>
+		</thead>
+
+		<tbody>
+			@foreach (var a in Model.Listatakmicenja)
+			{ 
+			<tr>
+				<td>@a.SkolaNaziv</td>
+				<td>@a.Razred</td>
+				<td>@a.Datum</td>
+				<td>@a.PredmetNaziv</td>
+				<td>@a.SkolaNazivN | @a.OdjeljenjeOznaka | @a.ImeUcesnika</td>
+				<td>Rezultati</td>
+
+
+			</tr>
+			}
+		</tbody>
+
+		
+	</table>
+</div>
+
+
+<div class="button">
+
+
+	<a class="btn btn-default" asp-controller="Takmicenje"  asp-action="DodajTakmicenjeView">Dodaj</a>
+
+
+
+
+</div>
 
 

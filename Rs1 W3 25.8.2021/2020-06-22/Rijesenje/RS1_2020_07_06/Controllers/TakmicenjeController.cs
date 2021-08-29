@@ -99,5 +99,143 @@ namespace RS1_2020_07_06.Controllers
 
 			return View("PrikazTakmicenja",Model);
 		}
+
+		public IActionResult DodajTakmicenjeView()
+		{
+			var model = new DodajTakmicenjeWM
+			{
+				Datum = DateTime.Today,
+				ListaPredmeta = konekcija
+			   .Predmet
+			   .GroupBy(X => X.Naziv)
+			   .Select(X => X.First())
+			   .AsEnumerable()
+			   .Select(X =>
+			   {
+
+				   return new SelectListItem
+				   {
+					   Text = X.Naziv,
+					   Value = X.Id.ToString()
+
+				   };
+			   }).ToList(),
+
+				ListaSkola = konekcija
+				.Skola
+				.AsEnumerable()
+				.Select(
+					X => {
+						return new SelectListItem
+						{
+							Text=X.Naziv,
+							Value=X.Id.ToString()
+
+						};
+
+
+					}).ToList(),
+
+				PredmetId=0,
+				SkolaId=0,
+
+
+
+
+
+
+			};
+
+
+
+
+
+
+			return View(model);
+		}
+
+		public IActionResult DodajTakmicenje(DodajTakmicenjeWM Model)
+		{
+
+
+
+			var takmicenje = new Takmicenje
+			{
+				Datum = Model.Datum,
+				PredmetId = Model.PredmetId,
+				Razred = 1,
+				SkolaId = Model.SkolaId,
+				zakkljucano = false,
+			};
+
+			konekcija.Takmicenja.Add(takmicenje);
+			konekcija.SaveChanges();
+
+
+			var UcesniciLista = konekcija
+				.DodjeljenPredmet
+				.Where(X => X.PredmetId == Model.PredmetId)
+				.Where(X => X.ZakljucnoKrajGodine == 5)
+				.AsEnumerable()
+				.Select(X =>
+				{
+
+					return new TakmicenjeUcesnik
+					{
+						Bodovi = 0,
+						OdjeljenjeStavkaId = X.OdjeljenjeStavkaId,
+						pristupio = false,
+						TakmicenjeId = takmicenje.Id
+
+					};
+
+
+
+				}).ToList();
+
+
+			foreach (var a in UcesniciLista)
+			{
+
+				bool flag = konekcija
+					.DodjeljenPredmet
+					.Where(X => X.OdjeljenjeStavkaId == a.OdjeljenjeStavkaId)
+					.Select(X => X.ZakljucnoKrajGodine)
+					.Average() > 4.0;
+
+				if (flag)
+				{
+
+
+					konekcija.TakmicenjeUcesnici.Add(a);
+				
+				
+				}
+
+
+			
+			
+			
+			}
+
+			konekcija.SaveChanges();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			return RedirectToAction("Index");
+		}
+
 	}
 }

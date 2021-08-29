@@ -1,0 +1,65 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model RS1_2020_07_06.WM.DodajTakmicenjeWM
+
+
+
+<div class="row">
+
+	<div class="col-md-5">
+		@*no hidden atributes*@
+
+		<form asp-controller="Takmicenje" asp-action="DodajTakmicenje">
+
+			<div class="form-group">
+
+				<label class="control-label" asp-for="PredmetId"> Predmet</label>
+				<select class="form-control" asp-for="PredmetId" asp-items="@Model.ListaPredmeta"></select>
+				<span class="text-danger" asp-validation-for="PredmetId"></span>
+
+			</div>
+
+			<div class="form-group">
+
+				<label class="control-label" asp-for="SkolaId"> Skola</label>
+				<select class="form-control" asp-for="SkolaId" asp-items="@Model.ListaSkola"></select>
+				<span class="text-danger" asp-validation-for="SkolaId"></span>
+
+			</div>
+
+			<div class="form-group">
+
+				<label class="control-label" asp-for="Datum"> Datum</label>
+				<input type="date" asp-for="Datum"  class="form-control" />
+				<span class="text-danger" asp-validation-for="SkolaId"></span>
+
+			</div>
+
+			<div class="form-group">
+						
+				<input type="submit" valie="Snimi"  class="btn btn-default" />
+				
+			</div>
+
+
+
+
+
+
+		</form>
+
+
+		</div>
+
+
+
+
+		
+		
+</div>
+
+
+
