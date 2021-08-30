@@ -13,12 +13,12 @@
 <div class="row">
 	<div class="col-md-5">
 		<form>
-			<input asp-for="SkolaId" value="@Model.SkolaId" hidden/>
+			@*<input asp-for="SkolaId" value="@Model.SkolaId" hidden/>*@
 
 			<div class="form-group">
 				
 				<label class="control-label" asp-for="SkolaId"></label>
-				<select class="form-control" asp-for="SkolaId" asp-items="@Model.ListaSkola"></select>
+				<select Id="SkolaID" class="form-control" asp-for="SkolaId" asp-items="@Model.ListaSkola"></select>
 				<span asp-validation-for="SkolaId" class="text-danger"></span>
 
 			</div>
@@ -31,7 +31,7 @@
 </div>
 
 
-<div>
+<div id="tabela">
 	<table class="table table-bordered" >
 		
 		<thead>
@@ -50,12 +50,18 @@
 			@foreach (var a in Model.Listatakmicenja)
 			{ 
 			<tr>
+				<td>@a.SkolaId</td>
 				<td>@a.SkolaNaziv</td>
 				<td>@a.Razred</td>
 				<td>@a.Datum</td>
 				<td>@a.PredmetNaziv</td>
 				<td>@a.SkolaNazivN | @a.OdjeljenjeOznaka | @a.ImeUcesnika</td>
-				<td>Rezultati</td>
+				<td>
+					<a asp-controller="Takmicenje" asp-action="rezultatiview" asp-route-Id="@a.TakmicenjeId">Rezultati</a>
+
+
+
+				</td>
 
 
 			</tr>
@@ -78,3 +84,57 @@
 </div>
 
 
+<script>
+
+	$("#SkolaID").on("change", function ()
+	{
+
+		/*var url = "/Takmicenje/Filtriraj";*/
+
+	     var url = "/Ajax/Filtriraj"
+
+
+		$.ajax({
+			// edit to add steve's suggestion.
+			//url: "/ControllerName/ActionName",
+			url: url,
+			data: { Id: $('#SkolaID option:selected').val() },
+			success: function (data) {
+				// your data could be a View or Json or what ever you returned in your action method
+				// parse your data here
+				$("#tabela").html(data);
+			}
+		});
+
+		 //$.get(url);
+
+
+
+		@*$.ajax({
+			type:"POST",
+			url: url,
+			data: { Id:@Model.SkolaId},
+			dataType: "html",
+			success: function (data) {
+
+				$("*").html(data);
+
+			}
+
+
+
+		});*@
+
+
+	})
+
+
+
+
+
+
+
+
+
+
+</script>

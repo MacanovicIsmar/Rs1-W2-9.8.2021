@@ -1,0 +1,44 @@
+﻿@*
+	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model RS1_2020_07_06.WM.PrikazTakmicenja
+
+
+
+
+<div id="tabela">
+	<table class="table table-bordered">
+
+		<thead>
+			<tr>
+				<td>Škola</td>
+				<td>Razred</td>
+				<td>Datum</td>
+				<td>Predmet</td>
+				<td>Najbolji Učesnik (škola | Odjeljenje |Ime i Prezime)</td>
+				<td>Akcija</td>
+
+			</tr>
+		</thead>
+
+		<tbody>
+			@foreach (var a in Model.Listatakmicenja)
+			{
+				<tr>
+					<td>@a.SkolaNaziv</td>
+					<td>@a.Razred</td>
+					<td>@a.Datum</td>
+					<td>@a.PredmetNaziv</td>
+					<td>@a.SkolaNazivN | @a.OdjeljenjeOznaka | @a.ImeUcesnika</td>
+					<td>Rezultati</td>
+
+
+				</tr>
+			}
+		</tbody>
+
+
+	</table>
+</div>

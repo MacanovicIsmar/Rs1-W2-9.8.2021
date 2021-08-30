@@ -35,6 +35,8 @@ namespace RS1_2020_07_06.WM
 
 			public int brojucesnika { get; set;}
 
+			public int SkolaId { get; set;}
+
 
 		}
 
