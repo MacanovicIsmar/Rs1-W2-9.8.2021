@@ -379,5 +379,37 @@ namespace RS1_2020_07_06.Controllers
 			return View("rezultatiview", model);
 		}
 
+		public IActionResult Zakljucaj(int Id)
+		{
+
+			var takmicenje=konekcija.Takmicenja.Find(Id);
+
+			takmicenje.zakkljucano = !takmicenje.zakkljucano;
+			konekcija.SaveChanges();
+
+
+			return RedirectToAction("RezultatiView", "Ajax", new { Id = Id });
+		}
+
+		public IActionResult UcesnikNijePristupio(int Id, int TakId)
+		{
+			var ucesnik = konekcija.TakmicenjeUcesnici.Find(Id);
+			ucesnik.pristupio = false;
+			konekcija.SaveChanges();
+
+			return RedirectToAction("RezultatiView", "Ajax", new { Id = TakId });
+		}
+
+		
+		public IActionResult UcesnikjePristupio(int Id, int TakId)
+		{
+			var ucesnik = konekcija.TakmicenjeUcesnici.Find(Id);
+			ucesnik.pristupio = true;
+			konekcija.SaveChanges();
+
+			return RedirectToAction("RezultatiView", "Ajax", new { Id = TakId });
+		}
+
+
 	}
 }

@@ -1,0 +1,154 @@
+﻿@*
+	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model RS1_2020_07_06.WM.RezultatiTakmicenjaView
+
+@**@
+<style>
+
+	.duzina {
+	}
+</style>
+
+
+
+@if (Model.Iszakljucano == "Da")
+{
+
+	<table class="table table-bordered">
+
+		<thead>
+
+			<tr style="width:300px">
+
+				<td>Odjeljenje</td>
+				<td>Broj u Dnevniku</td>
+				<td>Pristupio</td>
+				<td>Rezultati Bodovi</td>
+				<td>Akcija</td>
+			</tr>
+		</thead>
+		<tbody>
+
+			@foreach (var a in Model.listatakmicara)
+			{
+				<tr>
+					<td>@a.Odjeljenje</td>
+					<td>@a.BrojuDnevniku</td>
+					<td>@a.pristupio</td>
+					@if (a.pristupio == "Da")
+					{
+
+						<td>@a.bodovi</td>
+
+						<td>Uredi</td>
+					}
+					else
+					{
+
+						<td>X</td>
+						<td></td>
+
+
+					}
+				</tr>
+
+
+
+			}
+
+
+		</tbody>
+
+
+
+	</table>
+}
+
+else
+{
+	<table class="table table-bordered">
+
+		<thead>
+
+			<tr style="width:300px">
+
+				<td>Odjeljenje</td>
+				<td>Broj u Dnevniku</td>
+				<td>Pristupio</td>
+				<td>Rezultati Bodovi</td>
+				<td>Akcija</td>
+			</tr>
+		</thead>
+		<tbody>
+
+			@foreach (var a in Model.listatakmicara)
+			{
+			<tr>
+				<td>@a.Odjeljenje</td>
+				<td>@a.BrojuDnevniku</td>
+
+				@if (a.pristupio == "Da")
+				{
+					<td>
+						<a class="btn-success"
+						   asp-action="UcesnikNijePristupio"
+						   asp-controller="Takmicenje"
+						   ajax-poziv="da"
+						   ajax-rezultat="Ajax"
+						   asp-route-TakId="@Model.TakmicenjeId"
+						   asp-route-Id="@a.TakmicenjeucesnikId"
+						   >@a.pristupio</a>
+				
+				
+				
+				</td>
+					
+					
+					
+					
+					<td>@a.bodovi</td>
+
+					<td><a>Uredi</a></td>
+				}
+				else
+				{
+					<td>
+						<a class="btn-danger"
+						   asp-action="UcesnikjePristupio"
+						   asp-controller="Takmicenje"
+						   ajax-poziv="da"
+						   ajax-rezultat="Ajax"
+						   asp-route-TakId="@Model.TakmicenjeId"
+						   asp-route-Id="@a.TakmicenjeucesnikId"			   
+						   >@a.pristupio</a>
+				     </td>
+					<td>X</td>
+					<td></td>
+
+
+				}
+			</tr>
+
+
+
+			}
+
+
+		</tbody>
+
+
+
+	</table>
+
+
+
+
+
+
+}
+
+
+<script src="/jsFIT.js"></script>

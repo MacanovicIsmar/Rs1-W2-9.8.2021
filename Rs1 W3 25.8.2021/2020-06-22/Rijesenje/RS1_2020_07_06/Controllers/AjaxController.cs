@@ -117,6 +117,64 @@ namespace RS1_2020_07_06.Controllers
 			return PartialView("Filtriraj", Model);
 		}
 
+		public IActionResult RezultatiView(int Id)
+		{
+			var Takmicenje = konekcija.Takmicenja
+				.Find(Id);
+
+
+
+			var model = new RezultatiTakmicenjaView
+			{
+				TakmicenjeId = Id,
+				Datum = Takmicenje.Datum.ToString(format: "dd.MM.yyyy"),
+				Iszakljucano = Takmicenje.zakkljucano == true ? "Da" : "Ne",
+				PredmetNaziv = konekcija.Predmet.Find(Takmicenje.PredmetId).Naziv,
+				Razred = Takmicenje.Razred,
+				skolaNaziv = konekcija.Skola.Find(Takmicenje.SkolaId).Naziv,
+
+				listatakmicara = konekcija
+				.TakmicenjeUcesnici
+				.Include(X => X.OdjeljenjeStavka)
+				.Include(X => X.OdjeljenjeStavka.Odjeljenje)
+				.Include(X => X.OdjeljenjeStavka.Ucenik)
+				.Where(X => X.TakmicenjeId == Id)
+				.AsEnumerable()
+				.Select(X => {
+
+					return new RezultatiTakmicenjaView.row
+					{
+						TakmicenjeucesnikId = X.Id,
+						bodovi = X.Bodovi,
+						BrojuDnevniku = X.OdjeljenjeStavka.BrojUDnevniku,
+						Odjeljenje = X.OdjeljenjeStavka.Odjeljenje.Oznaka,
+						pristupio = X.pristupio == true ? "Da" : "Ne",
+
+
+
+
+					};
+
+				}).ToList()
+
+
+
+			};
+
+
+
+
+
+
+
+
+
+
+
+			return PartialView("RezultatViewAjax",model);
+		}
+
+
 
 	}
 }

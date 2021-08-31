@@ -15,13 +15,100 @@
 			<div class="form-group">
 
 				<label class="control-label" asp-for="skolaNaziv"> Skola</label>
-				<input class="form-control" asp-for="skolaNaziv" value="@Model.skolaNaziv" readonly/>
+				<input class="form-control" asp-for="skolaNaziv" value="@Model.skolaNaziv" readonly />
 				<span class="text-danger" asp-validation-for="skolaNaziv"></span>
 
 			</div>
+
+			<div class="form-group">
+				<label class="control-label" asp-for="PredmetNaziv"> Predmet</label>
+				<input class="form-control" asp-for="PredmetNaziv" value="@Model.PredmetNaziv" readonly>
+				<span asp-validation-for="PredmetNaziv" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label" asp-for="Razred"> Razred</label>
+				<input class="form-control" asp-for="Razred" value="@Model.Razred" readonly>
+				<span asp-validation-for="Razred" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label class="control-label" asp-for="Datum"> Razred</label>
+				<input class="form-control" asp-for="Datum" value="@Model.Datum" readonly>
+				<span asp-validation-for="Datum" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+
+				<a class="btn btn-default"  asp-route-Id="@Model.TakmicenjeId"    asp-controller="Takmicenje"  asp-action="Zakljucaj"
+				   ajax-poziv="da" ajax-rezultat="Ajax"
+
+				   
+				   >Zakljucaj</a>
+
+
+			</div>
+
+
 
 		</form>
 
 
 	</div>
 </div>
+
+<div id="Ajax">
+
+
+
+
+
+
+
+
+
+</div>
+
+
+<script>
+
+	$(document).ready(function () {
+
+		var url="/Ajax/RezultatiView"
+
+
+		$.ajax({
+
+			type: "POST",
+			url: url,
+			data: { Id:@Model.TakmicenjeId},
+			success: function (data)
+			{
+				$("#Ajax").html(data);
+
+
+			}
+
+
+		})
+
+
+
+
+
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+<script src="/jsFIT.js"></script>
