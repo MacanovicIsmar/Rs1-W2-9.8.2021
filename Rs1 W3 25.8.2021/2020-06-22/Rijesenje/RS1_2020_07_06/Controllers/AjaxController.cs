@@ -174,6 +174,108 @@ namespace RS1_2020_07_06.Controllers
 			return PartialView("RezultatViewAjax",model);
 		}
 
+		public IActionResult Snimi(UrediTakmicaraWM model)
+		{
+			if (model.flag == "U")
+			{
+				var Takmicenjeucesnik = konekcija.TakmicenjeUcesnici.Find(model.UcenikId);
+
+				Takmicenjeucesnik.Bodovi = model.bodovi;
+
+				konekcija.SaveChanges();
+
+
+
+			}
+			else
+			{
+				var ucesnik = new TakmicenjeUcesnik
+				{
+
+					Bodovi = model.bodovi,
+					OdjeljenjeStavkaId = model.UcenikId,
+					pristupio = false,
+					TakmicenjeId = model.takmicenjeId
+				};
+
+				konekcija.TakmicenjeUcesnici.Add(ucesnik);
+				konekcija.SaveChanges();
+
+
+
+			 }
+
+			
+			
+			
+			
+			
+
+			
+
+
+			return RedirectToAction("RezultatiView",new {Id=model.takmicenjeId});
+		}
+
+		public IActionResult DodajView(int Id, int TakId)
+		{
+
+			var spisakidova = konekcija
+				.TakmicenjeUcesnici
+				.Where(X=>X.TakmicenjeId==TakId)
+				.Select(X => X.OdjeljenjeStavkaId)
+				.ToList();
+
+
+
+
+
+
+
+			var model = new UrediTakmicaraWM
+			{
+				bodovi = 0,
+				takmicenjeId = Id,				
+				flag="D",
+
+				ListaUcenika = konekcija
+				.OdjeljenjeStavka
+				.Include(X => X.Ucenik)
+				.Include(X => X.Odjeljenje)
+				.Where(X=>spisakidova.Contains(X.Id)==false)
+				.AsEnumerable()
+				.Select(X =>
+				{
+
+					return new SelectListItem
+					{
+						Value = X.Id.ToString(),
+						Text = X.Odjeljenje.Oznaka + "-"
+						+ X.Ucenik.ImePrezime + "-"
+						+ X.BrojUDnevniku
+					};
+
+				}).ToList()
+
+
+
+
+
+			};
+
+
+
+
+
+
+
+
+
+
+
+			return PartialView("UrediTakmicaraWiew",model);
+		}
+
 
 
 	}

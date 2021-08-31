@@ -111,7 +111,15 @@ else
 					
 					<td>@a.bodovi</td>
 
-					<td><a>Uredi</a></td>
+					<td><a 
+						   asp-action="UrediView"
+						   asp-controller="Takmicenje"
+						   ajax-poziv="da"
+						   ajax-rezultat="Ajax"
+						   asp-route-Id="@a.TakmicenjeucesnikId"
+						   asp-route-TakId="@Model.TakmicenjeId"
+						   
+						   >Uredi</a></td>
 				}
 				else
 				{
@@ -145,10 +153,23 @@ else
 
 
 
+	<div>
 
+
+		<a class="btn btn-default" 
+		   asp-action="DodajView" 
+		   asp-controller="Ajax" 
+		   ajax-poziv="da"
+		   ajax-rezultat="Ajax"
+		   asp-route-Id="@Model.TakmicenjeId"	   
+		   ></a>
+
+
+
+	</div>
 
 
 }
 
 
-<script src="/jsFIT.js"></script>
+@*<script src="/jsFIT.js"></script>*@

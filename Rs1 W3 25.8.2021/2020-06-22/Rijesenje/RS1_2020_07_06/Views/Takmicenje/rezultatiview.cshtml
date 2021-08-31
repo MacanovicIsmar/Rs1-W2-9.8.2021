@@ -4,7 +4,7 @@
 @{
 }
 @model RS1_2020_07_06.WM.RezultatiTakmicenjaView
-
+	
 
 <div class="row">
 
@@ -40,11 +40,14 @@
 
 			<div class="form-group">
 
-				<a class="btn btn-default"  asp-route-Id="@Model.TakmicenjeId"    asp-controller="Takmicenje"  asp-action="Zakljucaj"
-				   ajax-poziv="da" ajax-rezultat="Ajax"
+				<a class="btn btn-default" asp-route-Id="@Model.TakmicenjeId" asp-controller="Takmicenje" asp-action="Zakljucaj"
+				   ajax-poziv="da" ajax-rezultat="Ajax">Zakljucaj</a>
 
-				   
-				   >Zakljucaj</a>
+
+				
+				
+				<a class="btn btn-default" asp-route-Id="@Model.TakmicenjeId" asp-controller="Takmicenje" asp-action="Odkljucaj"
+				   ajax-poziv="da" ajax-rezultat="Ajax">Odkljucaj</a>
 
 
 			</div>
@@ -111,4 +114,3 @@
 
 
 </script>
-<script src="/jsFIT.js"></script>

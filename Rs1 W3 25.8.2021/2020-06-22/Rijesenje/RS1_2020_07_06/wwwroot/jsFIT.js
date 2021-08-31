@@ -62,7 +62,7 @@ $(document).ready(function () {
     DodajAjaxEvente();
 });
 
-//$(document).ajaxComplete(function () {
-//    // izvršava nakon bilo kojeg ajax poziva
-//    DodajAjaxEvente();
-//});
+$(document).ajaxComplete(function () {
+    // izvršava nakon bilo kojeg ajax poziva
+    DodajAjaxEvente();
+});

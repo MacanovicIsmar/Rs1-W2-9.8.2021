@@ -384,7 +384,7 @@ namespace RS1_2020_07_06.Controllers
 
 			var takmicenje=konekcija.Takmicenja.Find(Id);
 
-			takmicenje.zakkljucano = !takmicenje.zakkljucano;
+			takmicenje.zakkljucano = true;
 			konekcija.SaveChanges();
 
 
@@ -408,6 +408,72 @@ namespace RS1_2020_07_06.Controllers
 			konekcija.SaveChanges();
 
 			return RedirectToAction("RezultatiView", "Ajax", new { Id = TakId });
+		}
+
+		public IActionResult UrediView(int Id, int TakId)
+		{
+			var takmicar = konekcija.TakmicenjeUcesnici
+				.Where(X => X.Id == Id)
+				.FirstOrDefault();
+
+
+			var model = new UrediTakmicaraWM
+			{
+				bodovi = takmicar.Bodovi,
+				takmicenjeId = TakId,
+				UcenikId = Id,
+				flag = "U",
+				ListaUcenika = konekcija
+				.TakmicenjeUcesnici
+				.Include(X => X.OdjeljenjeStavka)
+				.Include(X => X.OdjeljenjeStavka.Ucenik)
+				.Include(X => X.OdjeljenjeStavka.Odjeljenje)
+				.Where(X => X.TakmicenjeId == TakId)
+				.AsEnumerable()
+				.Select(X =>
+				{
+
+					return new SelectListItem
+					{
+						Value = X.Id.ToString(),
+						Text = X.OdjeljenjeStavka.Odjeljenje.Oznaka + "-"
+						+ X.OdjeljenjeStavka.Ucenik.ImePrezime + "-"
+						+ X.OdjeljenjeStavka.BrojUDnevniku
+					};
+
+				}).ToList()
+
+
+
+
+
+			};
+
+
+
+
+
+
+
+
+
+
+
+			return PartialView("~/Views/Ajax/UrediTakmicaraWiew.cshtml", model);
+		
+		}
+
+		public IActionResult Odkljucaj(int Id)
+		{
+
+			var takmicenje = konekcija.Takmicenja.Find(Id);
+
+			takmicenje.zakkljucano = false;
+			konekcija.SaveChanges();
+
+
+			return RedirectToAction("RezultatiView", "Ajax", new { Id = Id });
+
 		}
 
 
