@@ -109,7 +109,7 @@ else
 					
 					
 					
-					<td>@a.bodovi</td>
+					<td><input class="bodovi" value="@a.bodovi" id="@a.TakmicenjeucesnikId" type="number"  /></td>
 
 					<td><a 
 						   asp-action="UrediView"
@@ -162,7 +162,7 @@ else
 		   ajax-poziv="da"
 		   ajax-rezultat="Ajax"
 		   asp-route-Id="@Model.TakmicenjeId"	   
-		   ></a>
+		   >Dodaj Ucesnika</a>
 
 
 
@@ -170,6 +170,52 @@ else
 
 
 }
+
+<script>
+
+	function UpdateBodovi()
+	{
+		$("input.bodovi").focusout(function (e, status) {
+
+			var Id = $(this).attr("id");
+			var bodovi = $(this).val();
+
+			if (bodovi > 0 && bodovi < 100)
+			{
+				$.post("/Ajax/UpdateBodovi?Id=" + Id + "&TakId=" +@Model.TakmicenjeId+"&bodovi=" + bodovi);
+
+
+
+
+			}
+
+
+
+
+
+
+		});
+
+
+
+
+
+
+	}
+
+
+
+	$(document).ready(function () {
+
+		UpdateBodovi();
+
+	})
+
+
+
+
+
+</script>
 
 
 @*<script src="/jsFIT.js"></script>*@

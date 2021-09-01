@@ -276,6 +276,25 @@ namespace RS1_2020_07_06.Controllers
 			return PartialView("UrediTakmicaraWiew",model);
 		}
 
+		public IActionResult UpdateBodovi(int Id,int TakId,int bodovi)
+		{
+			var ucesnik=konekcija.TakmicenjeUcesnici.Find(Id);
+
+			ucesnik.Bodovi = bodovi;
+
+			konekcija.SaveChanges();
+
+
+
+
+
+
+
+
+			return RedirectToAction("RezultatiView", new { Id = TakId });
+		}
+
+
 
 
 	}
