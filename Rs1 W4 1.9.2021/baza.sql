@@ -1,5 +1,5 @@
 
-use [Rs1_22.6.20205]
+use [Rs1_18.9.2020]
 
 select * from OdjeljenjeStavka
 

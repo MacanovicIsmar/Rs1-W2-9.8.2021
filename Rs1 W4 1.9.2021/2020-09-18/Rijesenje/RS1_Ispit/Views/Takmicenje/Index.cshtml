@@ -1,0 +1,135 @@
+﻿@*
+	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+// Since Product isn't a string, it requires a cast.
+//int product = ViewData["Product"];
+
+
+
+}
+@model RS1_Ispit_asp.net_core.Wmodels.PrikazTakmicenjaWM
+
+
+<div class="row">
+
+	<div class="col-md-5">
+
+		<form asp-controller="Ajax" asp-action="TakmicenjaView2" ajax-poziv="da" ajax-rezultat="Ajax">
+
+
+			<div class="form-group">
+
+				<label class="control-label" asp-for="SkolaId">Skola</label>
+				<select class="SkolaId form-control" asp-for="SkolaId" asp-items="@Model.ListaSkola"></select>
+				<span class="text-danger" asp-validation-for="SkolaId"></span>
+
+			</div>
+
+
+			<div class="form-group">
+
+				<label class="control-label" asp-for="razred">Razred</label>
+				<select class="form-control" asp-for="razred" asp-items="@Model.ListaRazreda"></select>
+				<span class="text-danger" asp-validation-for="razred"></span>
+
+			</div>
+
+			<div class="form-group">
+
+
+				<input type="submit" class="btn btn-default" value="Pretrazi" />
+
+
+			</div>
+		
+
+
+		</form>
+
+
+	</div>
+
+
+</div>
+
+
+<div id="Ajax">
+
+
+
+
+</div>
+
+<div>
+
+	<a id="dugme" asp-controller="Takmicenje" asp-action="DodajtakmicenjeWM" asp-route-test=""> Dodaj Takmicenje</a>
+
+</div>
+
+
+
+
+<script>
+
+
+
+	$(document).ready(function () {
+
+		var url = "/Ajax/TakmicenjaView"
+
+		$.ajax({
+
+			url: url,
+			type: "post",
+			data: { skolaId: $("#SkolaId option:selected").val() },
+			success: function (data) {
+				$("#Ajax").html(data);
+
+
+			}
+
+
+
+		})
+
+
+
+		$("#SkolaId").on("change", function () {
+
+			/*$("#dugme").attr("asp-route-test", $("#SkolaId option:selected").val())*/
+			var Id = $("#SkolaId option:selected").text();
+
+			$("#dugme").attr('href','/Takmicenje/DodajtakmicenjeWM?test='+Id);
+
+			/*alert("print the value in alert" + $("#dugme").attr('asp-route-test'))*/
+
+			/*TempData["Greeting"] = $("#SkolaId option:selected").val();*/
+
+		})
+
+
+
+
+
+
+
+
+	})
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
