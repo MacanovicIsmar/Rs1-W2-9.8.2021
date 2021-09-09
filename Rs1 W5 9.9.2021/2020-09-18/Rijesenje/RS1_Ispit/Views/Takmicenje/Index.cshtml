@@ -1,0 +1,164 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model RS1_Ispit_asp.net_core.WM.PrikaztakmicenjaWm
+
+
+<div class="row">
+
+    <div class="col-md-5">
+
+		<form Id="forma" asp-action="PrikazTakmicenja" asp-controller="Takmicenje" ajax-poziv="da" ajax-rezultat="Ajax">
+
+
+			<div class="form-group">
+
+				<label class="control-label" asp-for="SkolaId"> Skola: </label>
+				<select class="form-control" asp-for="SkolaId" asp-items="@Model.spisakskola"></select>
+				<span asp-validation-for="SkolaId" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+
+				<label class="control-label" asp-for="PredmetNaziv"> Skola: </label>
+				<select class="form-control" asp-for="PredmetNaziv" asp-items="@Model.spisakpredmeta"></select>
+				<span asp-validation-for="SkolaId" class="text-danger"></span>
+			</div>
+
+
+			<div>
+
+
+                <input type="submit" value="filtriraj" />
+
+
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</form>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<div id="Ajax">
+
+
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+	$(document).ready(function () {
+		// izvršava nakon što glavni html dokument bude generisan
+
+
+        var forma = $("#forma");
+        var url = "/Takmicenje/PrikazTakmicenja";
+
+
+        $.ajax({
+
+            data: forma.serialize(),
+            url: url,
+            success: function (data)
+            {
+                $("#Ajax").html(data)
+
+
+
+
+            }
+
+
+
+
+
+
+        })
+
+
+
+
+
+
+
+
+		
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
