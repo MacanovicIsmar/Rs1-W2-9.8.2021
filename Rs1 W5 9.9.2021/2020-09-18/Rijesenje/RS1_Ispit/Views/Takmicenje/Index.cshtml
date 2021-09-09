@@ -17,14 +17,14 @@
 			<div class="form-group">
 
 				<label class="control-label" asp-for="SkolaId"> Skola: </label>
-				<select class="form-control" asp-for="SkolaId" asp-items="@Model.spisakskola"></select>
+				<select Id="skola" class="form-control " asp-for="SkolaId" asp-items="@Model.spisakskola"></select>
 				<span asp-validation-for="SkolaId" class="text-danger"></span>
 			</div>
 
 			<div class="form-group">
 
 				<label class="control-label" asp-for="PredmetNaziv"> Skola: </label>
-				<select class="form-control" asp-for="PredmetNaziv" asp-items="@Model.spisakpredmeta"></select>
+				<select Id="predmet" class="form-control" asp-for="PredmetNaziv" asp-items="@Model.spisakpredmeta"></select>
 				<span asp-validation-for="SkolaId" class="text-danger"></span>
 			</div>
 
@@ -93,7 +93,13 @@
 </div>
 
 
+<div>
 
+
+    <a id="dugme" class="btn btn-default"> Dodaj takmicenje</a>
+
+
+</div>
 
 
 <script>
@@ -126,6 +132,16 @@
 
         })
 
+		var skola = $("#skola option:selected").val();
+		var predmet = $("#predmet option:selected").val();
+
+		$("#dugme").attr("href", "/Takmicenje/DodajTakmicenje?skola=" + skola + "&predmet=" + predmet);
+
+		
+		dodajevent()
+
+
+
 
 
 
@@ -136,6 +152,24 @@
 		
 	});
 
+
+    function dodajevent()
+    {
+
+		$("#skola").on("change", function () {
+
+            var skola = $("#skola option:selected").val();
+			var predmet = $("#skola option:selected").val();
+
+            $("#dugme").attr("href", "/Takmicenje/DodajTakmicenje?skola=" + skola + "&predmet=" + predmet);
+
+
+
+        })
+
+
+
+    }
 
 
 
