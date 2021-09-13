@@ -58,7 +58,13 @@
 						   >Da</a>
 					</td>
 
-					<td>@a.Rezultatbodovi</td>
+
+					<td><input   
+					     id="bodovi"
+						 UcesnikId="@a.UcesnikId"
+					     value="@a.Rezultatbodovi"
+					     type="number"
+					/></td>
 
 				}
 				else
@@ -79,7 +85,15 @@
 
 
 
-				<td> <a asp-action="Index" asp-controller="Ucesnici" asp-route-Id="@a.UcesnikId">Uredi</a></td>
+				<td> <a asp-action="UrediucesnikaWm" 
+						asp-controller="Ucesnici" 
+						asp-route-Id="@a.UcesnikId"
+						asp-route-TakId="@Model.TakmicenjeId"
+						ajax-poziv="da"
+						ajax-rezultat="Ajax"
+						
+						
+						>Uredi</a></td>
 			</tr>
 
 
@@ -194,8 +208,75 @@ else
 
 }
 
+<a asp-action="Dodajucesnika" 
+   asp-controller="Ucesnici" 
+   asp-route-Id="@Model.TakmicenjeId"
+   ajax-poziv="da"
+   ajax-rezultat="Ajax"
+   class="btn btn-default"
+   >Dodaj ucesnika</a>
+
+
+
+<script>
+
+	$(document).ready(function () {
+
+		$("#bodovi").focusout(function (e, status) {
+
+			var bodovi = $(this).val()
+			var ucesnikId = $(this).attr("UcesnikId");
+			var url="/Ucesnici/EditBodovi"
+
+			$.ajax({
+
+				url: url,
+				data: { bodovi: bodovi, ucesnikId: ucesnikId },
+				success: function (data)
+				{
+
+					/*$("#Ajax").html(data);*/
 
 
 
 
+
+				}
+
+
+
+
+			})
+
+
+
+
+
+
+
+
+
+		});
+
+
+
+
+
+
+
+
+
+
+	})
+
+
+
+
+
+
+
+
+
+
+</script>
 
