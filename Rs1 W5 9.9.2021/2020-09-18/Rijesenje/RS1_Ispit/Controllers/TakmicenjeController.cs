@@ -343,6 +343,33 @@ namespace RS1_Ispit_asp.net_core.Controllers
 			return RedirectToAction("Index", "Takmicenje", new { skolaId = model.SkolaId });
 		}
 
+		public IActionResult Odkljucaj(int Id)
+		{
+			var takmicenje = konekcija.Takmicenje.Find(Id);
+
+			takmicenje.Zakljucano = false;
+
+			konekcija.SaveChanges();
+
+
+
+
+
+			return RedirectToAction("PrikazUcesnika", "Ucesnici", new { TakmicenjeId = Id });
+
+		}
+		public IActionResult Zakljucaj(PrikazUcesnikaWm model)
+		{
+			var takmicenje = konekcija.Takmicenje.Find(model.TakmicenjeId);
+
+			takmicenje.Zakljucano = true;
+
+			konekcija.SaveChanges();
+
+
+			return RedirectToAction("PrikazUcesnika", "Ucesnici", model);
+		}
+
 
 
 

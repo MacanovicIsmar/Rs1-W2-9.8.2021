@@ -1,0 +1,221 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model RS1_Ispit_asp.net_core.WM.PrikazUcesnikaWm
+
+<div class="row">
+
+    <div class="col-md-5">
+
+		<form Id="forma" asp-action="Zakljucaj" asp-controller="Takmicenje" ajax-poziv="da" ajax-rezultat="Ajax">
+
+            <Input asp-for="TakmicenjeId" hidden/>
+
+
+
+			<div class="form-group">
+
+				<label class="control-label" asp-for="SkolaNaziv"> Skola Domacin:</label>
+				<input Id="skola" class="form-control " asp-for="SkolaNaziv" readonly />
+				<span asp-validation-for="SkolaNaziv" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+
+				<label class="control-label" asp-for="PredmetNaziv"> Predmet: </label>
+				<input Id="skola" class="form-control " asp-for="PredmetNaziv" readonly />
+				<span asp-validation-for="PredmetNaziv" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+
+				<label class="control-label" asp-for="Razred"> Razred: </label>
+				<input Id="skola" class="form-control " asp-for="Razred" readonly />
+				<span asp-validation-for="PredmetNaziv" class="text-danger"></span>
+			</div>
+
+
+			<div class="form-group">
+
+				<label class="control-label" asp-for="Datum"> Datum: </label>
+				<label Id="skola" class="form-control " asp-for="Datum">@Model.Datum</label>
+				<span asp-validation-for="PredmetNaziv" class="text-danger"></span>
+			</div>
+
+
+			<div>
+
+
+				<input type="submit" value="Zakljucaj" />
+
+
+
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</form>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </div>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+<div id="Ajax">
+
+
+
+
+
+</div>
+
+
+<div>
+
+
+    <a asp-controller="Takmicenje" asp-action="Odkljucaj" asp-route-Id="@Model.TakmicenjeId"
+       ajax-poziv="da" ajax-rezultat="Ajax"
+       >odkljucaj</a>
+
+
+</div>
+
+
+<script>
+
+	$(document).ready(function () {
+		// izvršava nakon što glavni html dokument bude generisan
+
+
+        var forma = $("#forma");
+        var url = "/Ucesnici/PrikazUcesnika";
+
+
+        $.ajax({
+
+            data: forma.serialize(),
+            url: url,
+            success: function (data)
+            {
+                $("#Ajax").html(data)
+
+
+
+
+            }
+
+
+
+
+
+
+        })
+
+
+
+
+
+		var skola = $("#skola option:selected").val();
+		var predmet = $("#predmet option:selected").val();
+
+		$("#dugme").attr("href", "/Takmicenje/DodajTakmicenje?skola=" + skola + "&predmet=" + predmet);
+
+		
+		dodajevent()
+
+
+
+
+
+
+
+
+
+
+		
+	});
+
+
+    function dodajevent()
+    {
+
+		$("#skola").on("change", function () {
+
+            var skola = $("#skola option:selected").val();
+			var predmet = $("#skola option:selected").val();
+
+            $("#dugme").attr("href", "/Takmicenje/DodajTakmicenje?skola=" + skola + "&predmet=" + predmet);
+
+
+
+        })
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+

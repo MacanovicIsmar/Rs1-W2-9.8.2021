@@ -40,12 +40,13 @@
 
 				<tr>
 
+					<td>@a.TakmicenjeId</td>
 					<td>@a.Skolanaziv</td>
 					<td>@a.Razred</td>
 					<td>@a.Datum</td>
 					<td>@a.Predmet</td>
 					<td>@a.Nskola | @a.Nodljenje | @a.Nskola</td>
-					<td>Akcija</td>
+					<td> <a asp-action="Index" asp-controller="Ucesnici" asp-route-Id="@a.TakmicenjeId" >Uredi</a></td>
 				</tr>
 
 

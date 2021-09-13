@@ -1,0 +1,201 @@
+﻿@*
+	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model RS1_Ispit_asp.net_core.WM.PrikazUcesnikaWm
+	
+
+@if (Model.Zakljucano == false)
+{
+
+
+	<table class="table table-bordered">
+
+
+		<thead>
+
+			<tr style="width:300px">
+
+				<td>Odjeljenje</td>
+				<td>Broj u Dnevniku</td>
+				<td>Pristupio</td>
+				<td>RezultatiBodovi</td>
+				<td>Akcija</td>
+			</tr>
+
+
+
+
+
+
+		</thead>
+
+
+
+
+
+		<tbody>
+
+
+			@foreach (var a in Model.Spisakucesnika)
+			{
+
+			<tr>
+
+				<td>@a.odjeljenje</td>
+				<td>@a.BrojUdnevniku</td>
+				@if (a.Pristupio == "Da")
+				{
+					<td>
+						<a class="btn-success"
+						   asp-action="UcesnikNijePristupio"
+						   asp-controller="Ucesnici"
+						   ajax-rezultat="Ajax"
+						   ajax-poziv="da"
+						   asp-route-id="@a.UcesnikId"
+						   asp-route-TakId="@Model.TakmicenjeId"
+						   >Da</a>
+					</td>
+
+					<td>@a.Rezultatbodovi</td>
+
+				}
+				else
+				{
+					<td>
+						<a class="btn-danger"
+						   asp-action="UcesnikjePristupio"
+						   asp-controller="Ucesnici"
+						   ajax-rezultat="Ajax"
+						   ajax-poziv="da"
+						   asp-route-id="@a.UcesnikId"
+						   asp-route-TakId="@Model.TakmicenjeId"
+						   >Ne</a>
+						   
+					</td>
+					<td>X</td>
+				}
+
+
+
+				<td> <a asp-action="Index" asp-controller="Ucesnici" asp-route-Id="@a.UcesnikId">Uredi</a></td>
+			</tr>
+
+
+
+
+
+
+
+			}
+
+
+
+
+
+
+
+
+
+
+		</tbody>
+
+
+
+
+
+
+	</table>
+
+}
+else
+{
+	<table class="table table-bordered">
+
+
+		<thead>
+
+			<tr style="width:300px">
+
+				<td>Odjeljenje</td>
+				<td>Broj u Dnevniku</td>
+				<td>Pristupio</td>
+				<td>RezultatiBodovi</td>
+				<td>Akcija</td>
+			</tr>
+
+
+
+
+
+
+		</thead>
+
+
+
+
+
+		<tbody>
+
+
+			@foreach (var a in Model.Spisakucesnika)
+			{
+
+			<tr>
+
+				<td>@a.odjeljenje</td>
+				<td>@a.BrojUdnevniku</td>
+				@if (a.Pristupio == "Da")
+				{
+
+					<td>Da</td>
+					<td>@a.Rezultatbodovi</td>
+				}
+				else
+				{
+					<td>Ne</td>
+					<td>X</td>
+
+
+				}
+
+
+				<td>uredi</td>
+			</tr>
+
+
+
+
+
+
+
+			}
+
+
+
+
+
+
+
+
+
+
+		</tbody>
+
+
+
+
+
+
+	</table>
+
+
+
+}
+
+
+
+
+
+
