@@ -1,0 +1,98 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model RS1_Ispit_asp.net_core.Wm.DodajtakmicenjeWM
+
+
+
+<div class="row">
+
+
+    <div class="col-md-5">
+
+
+		<form id="forma" asp-action="Snimi" asp-controller="Takmicenje">
+
+			<div class="form-group">
+
+				<label class="control-label" asp-for="SkolaId">Skola:</label>
+				<select id="skola" class="form-control" asp-for="SkolaId" asp-items="@Model.Listaskola"></select>
+				<span class="text-danger" asp-validation-for="SkolaId"></span>
+
+			</div>
+
+			<div class="form-group">
+
+				<label class="control-label" asp-for="Predmetnaziv">Predmet</label>
+				<select class="form-control" asp-for="Predmetnaziv" asp-items="@Model.ListaPredmeta"></select>
+				<span class="text-danger" asp-validation-for="Predmetnaziv"></span>
+
+			</div>
+
+
+			<div class="form-group">
+
+				<label class="control-label" asp-for="Datum">Datum</label>
+				<input class="form-control" asp-for="Datum" type="date" readonly/>
+				<span class="text-danger" asp-validation-for="Predmetnaziv"></span>
+
+			</div>
+
+
+
+			<div class="form-group">
+
+				<input value="Snimi" type="submit" />
+
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+		</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+

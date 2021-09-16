@@ -1,0 +1,277 @@
+﻿@*
+	For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model RS1_Ispit_asp.net_core.Wm.UcesniciPrikazWM
+
+
+@if (Model.Zakljucano == false)
+{
+
+
+	<table class="table table-bordered">
+
+		<thead>
+
+			<tr>
+
+				<td>Odjeljenje</td>
+				<td>Broj U Dnevniku</td>
+				<td>Pristupio</td>
+				<td>RezultatBodovi</td>
+				<td>Akcija</td>
+
+
+			</tr>
+
+
+
+
+
+		</thead>
+
+
+		<tbody>
+
+
+			@foreach (var a in Model.ListaUcesnika)
+			{
+
+			<tr>
+				<td>@a.Odjeljenje</td>
+				<td>@a.BrojUdnevniku</td>
+
+				@if (a.Pristupio == "Da")
+				{
+					<td><a class="btn btn-success"
+						   asp-controller="Ucesnici"
+						   asp-action="Ucesnikjepristupio"
+						   asp-route-Id="@a.UcesnikId"
+						   asp-route-TakId="@Model.TakmicenjaId"
+						   asp-route-pristupio="@Model.Zakljucano"
+						   ajax-poziv="da"
+						   ajax-rezultat="Ajax"
+						   
+						  				   
+						   
+						   >@a.Pristupio</a>   </td>
+					
+						   
+						   
+						   
+						   <td>
+							   <input 
+								class="bodovi"
+							    ucesnikid="@a.UcesnikId"
+								value="@a.Rezultatbodovi"
+								type="number"/>
+						   </td>
+
+
+				}
+				else
+				{
+					<td><a class="btn btn-danger"
+						   asp-controller="Ucesnici"
+						   asp-action="Ucesniknijepristupio"
+						   asp-route-Id="@a.UcesnikId"
+						   asp-route-TakId="@Model.TakmicenjaId"
+						   asp-route-pristupio="@Model.Zakljucano"
+						   ajax-poziv="da"
+						   ajax-rezultat="Ajax"
+						   
+						   
+						   >@a.Pristupio</a></td>
+					<td>X</td>
+
+
+
+
+				}
+
+
+
+
+				<td><a asp-controller="Ucesnici"
+					   asp-action="DodajUrediucesnika"
+					   asp-route-Id="@a.UcesnikId"
+					   asp-route-TakId="@Model.TakmicenjaId"
+					   ajax-poziv="da"
+					   ajax-rezultat="Ajax"
+					   > uredi</a></td>
+
+			</tr>
+
+
+
+
+
+			}
+
+
+
+
+
+
+		</tbody>
+
+
+
+
+
+
+	</table>
+
+	<a class="brn btn-default"
+	   asp-action="DodajUrediucesnika"
+	   asp-controller="Ucesnici"
+	   asp-route-TakId="@Model.TakmicenjaId"
+	   ajax-poziv="da"
+	   ajax-rezultat="Ajax"
+	   >DodajUcesnika</a>
+
+
+
+
+
+
+}
+
+else
+{
+	<table class="table table-bordered">
+
+		<thead>
+
+			<tr>
+
+				<td>Odjeljenje</td>
+				<td>Broj U Dnevniku</td>
+				<td>Pristupio</td>
+				<td>RezultatBodovi</td>
+				<td>Akcija</td>
+
+
+			</tr>
+
+
+
+
+
+		</thead>
+
+
+		<tbody>
+
+
+			@foreach (var a in Model.ListaUcesnika)
+
+			{
+
+				<tr>
+					<td>@a.Odjeljenje</td>
+					<td>@a.BrojUdnevniku</td>
+					<td>@a.Pristupio</td>
+					<td>@a.Rezultatbodovi</td>
+					<td><a asp-controller="" asp-action=""> uredi</a></td>
+
+				</tr>
+
+
+
+
+
+			}
+
+
+
+
+
+
+		</tbody>
+
+
+
+
+
+
+	</table>
+
+
+
+
+
+}
+
+
+
+
+
+<script>
+
+	$(document).ready(function () {
+
+		$(".bodovi").focusout(function (e,status) {
+
+			var url = "/Ucesnici/Editbodovi";
+			var Ucesnikid = $(this).attr("ucesnikid");
+			var bodovi = $(this).val();
+
+			$.ajax({
+
+				url: url,
+				data: { Id: Ucesnikid, bodovi: bodovi },
+				success: function (data) { }
+
+
+			})
+
+
+
+
+
+
+
+
+		})
+
+
+
+
+
+
+
+
+
+	});
+
+
+
+
+	//$(document).ready(function () {
+	//	$("#bodovi").focusout(function (e, status) {
+	//		var bodovi = $(this).val()
+	//		var ucesnikId = $(this).attr("UcesnikId");
+	//		var url = "/Ucesnici/EditBodovi"
+	//		$.ajax({
+	//			url: url,
+	//			data: { bodovi: bodovi, ucesnikId: ucesnikId },
+	//			success: function (data) {
+	//				/*$("#Ajax").html(data);*/
+	//			}
+	//		})
+	//	});
+	//})
+
+
+
+
+
+
+</script>
+
+
+
+
