@@ -1,5 +1,5 @@
 # Rs1-W2-9.8.2021
-Moje Vjezbe
+Not a Project ,it is just a workout for software development 1
 
 Rs1 W2 09.8.2021->Ispit :2020-01-30  
 Rs1 W3 25.8.2021->Ispit :2020-06-22  
